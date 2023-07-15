@@ -22,7 +22,6 @@ resource "aws_key_pair" "keypair" {
 resource "aws_eip" "elastic_ip" {
     instance = aws_instance.ec2.id
     vpc = true
-
 }
 
 resource "aws_instance" "ec2" {

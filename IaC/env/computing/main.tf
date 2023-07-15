@@ -14,7 +14,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    region = "us-west-1"
+    region = "ap-northeast-1"
     bucket = "tfstate-bucket-1"
     key    = "computing"
   }
@@ -32,7 +32,7 @@ module "computing" {
 data "terraform_remote_state" "network" {
   backend = "s3"
   config {
-    region = "us-west-1"
+    region = "ap-northeast-1"
     bucket = "tfstate-bucket-1"
     key = "network"
   }
