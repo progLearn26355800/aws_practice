@@ -1,0 +1,12 @@
+version: '3.0'
+
+services:
+  tf:
+    container_name: tf
+    build: terraform_build/
+    env_file:
+      - .env
+    volumes:
+      - ./IaC:/IaC
+    tty: true
+    working_dir: /IaC
