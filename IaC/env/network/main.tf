@@ -12,8 +12,6 @@ provider "aws" {
   region = var.aws_region
 }
 
-provider "http" {}
-
 terraform {
   backend "s3" {
     region = "us-west-1"
@@ -27,5 +25,4 @@ module "network" {
 
   vpc_cidr     = var.vpc_cidr
   az_a         = var.az_a
-  allowed-cidr = var.allowed-cidr
 }
