@@ -11,29 +11,32 @@ terraform {
 provider "aws" {
   region = var.aws_region
 }
-
 terraform {
   backend "s3" {
-    region = "ap-northeast-1"
+    region = "us-west-1"
     bucket = "tfstate-bucket-1"
     key    = "computing"
   }
 }
 
+provider "http" {}
+
 module "computing" {
   source = "../../module/computing"
 
-  az_a         = var.az_a
-  vpc_id = module.network.vpc_id
-  public_subnet_id = module.network.public_subnet_id
-  private_subnet_id = module.network.private_subnet_id
+  aws_region        = var.aws_region
+  key_name          = var.key_name
+  allowed-cidr      = var.allowed-cidr
+  vpc_id            = data.terraform_remote_state.network.outputs.vpc_id
+  public_subnet_id  = data.terraform_remote_state.network.outputs.public_subnet_id
+  private_subnet_id = data.terraform_remote_state.network.outputs.private_subnet_id
 }
 
 data "terraform_remote_state" "network" {
   backend = "s3"
-  config {
-    region = "ap-northeast-1"
+  config = {
+    region = "us-west-1"
     bucket = "tfstate-bucket-1"
-    key = "network"
+    key    = "network"
   }
 }

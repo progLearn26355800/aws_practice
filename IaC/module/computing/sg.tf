@@ -10,7 +10,7 @@ locals {
 resource aws_security_group ec2_sg {
     name = "handson-ec2-sg"
     description = "for EC2 Linux"
-    vpc_id = var.output_vpc_id
+    vpc_id = var.vpc_id
     tags = {
         Name = "handson-ec2-sg"
     }

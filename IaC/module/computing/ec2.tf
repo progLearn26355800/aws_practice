@@ -4,8 +4,8 @@ resource tls_private_key private_key {
 }
 
 locals {
-    public_key_file = "../../ssh_key/id_rsa_ec2.pub"
-    private_key_file = "../../ssh_key/id_rsa_ec2"
+    public_key_file =  "../../ssh_key/${var.key_name}.pub"
+    private_key_file = "../../ssh_key/${var.key_name}"
 }
 
 resource "local_file" "private_key_pem" {
@@ -19,11 +19,6 @@ resource "aws_key_pair" "keypair" {
     public_key = tls_private_key.private_key.public_key_openssh
 }
 
-resource "aws_eip" "elastic_ip" {
-    instance = aws_instance.ec2.id
-    vpc = true
-}
-
 resource "aws_instance" "ec2" {
     ami = "ami-0062dbf6b829f04e1"
     instance_type = "t2.micro"
@@ -32,7 +27,12 @@ resource "aws_instance" "ec2" {
         aws_security_group.ec2_sg.id
     ]
     key_name = aws_key_pair.keypair.id
+    iam_instance_profile = aws_iam_instance_profile.systems_manager.name
     tags = {
         Name = "hogehogeServer"
     }
+
+    depends_on = [
+        aws_iam_instance_profile.systems_manager
+    ]
 }
