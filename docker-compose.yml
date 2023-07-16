@@ -2,7 +2,7 @@ version: '3.0'
 
 services:
   tf:
-    container_name: tf
+    container_name: tf_aws
     build: terraform_build/
     env_file:
       - .env
