@@ -25,7 +25,6 @@ terraform {
 module "network" {
   source = "../../module/network"
 
-  vpc_cidr     = var.vpc_cidr
-  az_a         = var.az_a
-  allowed-cidr = var.allowed-cidr
+  vpc_cidr = var.vpc_cidr
+  az_a     = var.az_a
 }
