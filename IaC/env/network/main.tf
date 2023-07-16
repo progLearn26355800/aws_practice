@@ -16,7 +16,7 @@ provider "http" {}
 
 terraform {
   backend "s3" {
-    region = "ap-northeast-1"
+    region = "us-west-1"
     bucket = "tfstate-bucket-1"
     key    = "network"
   }
